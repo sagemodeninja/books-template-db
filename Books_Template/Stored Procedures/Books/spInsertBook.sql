@@ -1,0 +1,21 @@
+﻿
+CREATE PROCEDURE spInsertBook
+	@GenreId	BIGINT,
+	@Title		VARCHAR(100),
+	@Summary	VARCHAR(250)
+AS
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+		INSERT INTO
+			book
+			(GenreId, Title, Summary)
+		VALUES
+			(@GenreId, @Title, @Summary);
+
+		COMMIT TRANSACTION
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION
+	END CATCH
+END

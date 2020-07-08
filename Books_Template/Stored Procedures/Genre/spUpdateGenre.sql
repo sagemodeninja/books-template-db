@@ -1,0 +1,21 @@
+﻿
+CREATE PROCEDURE spUpdateGenre
+	@Id				BIGINT,
+	@Description	VARCHAR(100)
+AS
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+		UPDATE
+			genre
+		SET
+			[Description] = @Description
+		WHERE
+			Id = @Id;
+
+		COMMIT TRANSACTION
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION
+	END CATCH
+END

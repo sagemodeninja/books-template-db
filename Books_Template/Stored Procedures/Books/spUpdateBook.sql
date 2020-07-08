@@ -1,0 +1,25 @@
+﻿
+CREATE PROCEDURE spUpdateBook
+	@Id			BIGINT,
+	@GenreId	BIGINT,
+	@Title		VARCHAR(100),
+	@Summary	VARCHAR(250)
+AS
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+		UPDATE
+			book
+		SET
+			GenreId = @GenreId,
+			Title	= @Title,
+			Summary = @Summary
+		WHERE
+			Id = @Id;
+
+		COMMIT TRANSACTION
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION
+	END CATCH
+END
